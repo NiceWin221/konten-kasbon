@@ -50,7 +50,8 @@ export default function SignupPage() {
         {success ? (
           <div className="text-center space-y-4">
             <div className="p-4 bg-green-50 text-green-700 rounded-lg">
-              Pendaftaran berhasil! Silakan periksa email Anda jika konfirmasi diperlukan, atau langsung masuk.
+              {/* Pendaftaran berhasil! Silakan periksa email Anda jika konfirmasi diperlukan, atau langsung masuk. */}
+              Pendaftaran berhasil! Silakan login.
             </div>
             <Link 
               href="/login"
