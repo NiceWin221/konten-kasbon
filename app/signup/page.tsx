@@ -25,8 +25,38 @@ export default function SignupPage() {
       password,
     });
 
+    let message = ""
+
     if (error) {
-      setError(error.message);
+      switch (error.code) {
+        case "user_already_exists":
+          message = "Email sudah terdaftar.";
+          break;
+
+        case "email_exists":
+          message = "Email sudah terdaftar.";
+          break;
+
+        case "invalid_credentials":
+          message = "Email atau password tidak valid.";
+          break;
+
+        case "weak_password":
+          message = "Password terlalu lemah.";
+          break;
+
+        case "email_not_confirmed":
+          message = "Email belum dikonfirmasi.";
+          break;
+
+        case "signup_disabled":
+          message = "Pendaftaran sedang tidak tersedia.";
+          break;
+
+        default:
+          message = "Gagal membuat akun. Silakan coba lagi.";
+      }
+      setError(message);
     } else {
       setSuccess(true);
       setEmail("");

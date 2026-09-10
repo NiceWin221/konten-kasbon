@@ -26,7 +26,22 @@ export default function LoginPage() {
     });
 
     if (error) {
-      setError(error.message);
+      let message = "Terjadi kesalahan. Silakan coba lagi.";
+
+      switch (error.code) {
+        case "invalid_credentials":
+          message = "Email atau password salah.";
+          break;
+
+        case "email_not_confirmed":
+          message = "Email kamu belum dikonfirmasi.";
+          break;
+
+        default:
+          message = "Gagal masuk. Silakan coba lagi.";
+      }
+
+      setError(message);
       setLoading(false);
     } else {
       router.push("/");
