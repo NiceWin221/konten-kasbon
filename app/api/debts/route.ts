@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
 
     let query = supabase
       .from("debts")
-      .select("*")
+      .select("id, type, counterpart_name, amount, note, due_date, settled_at, created_at, updated_at")
       .order("created_at", { ascending: false });
 
     // Filter type (owed_to_me / i_owe)
