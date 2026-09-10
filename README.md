@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kasbon - Web App Pencatat Utang Piutang
 
-## Getting Started
+Aplikasi "Kasbon" adalah web app sederhana untuk mencatat utang piutang pribadi. Memudahkan pencatatan siapa berhutang berapa atau kita berhutang ke siapa, dilengkapi dengan rekapitulasi net (selisih) dan fitur penandaan lunas. 
 
-First, run the development server:
+Dibuat untuk memenuhi Hiring Task Junior Fullstack Developer.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Demo
+https://konten-kasbon.vercel.app/
+
+---
+
+## 🛠️ Setup & Instalasi Lokal
+
+### 1. Persyaratan
+- Node.js (v20+ direkomendasikan)
+- Akun [Supabase](https://supabase.com/)
+
+### 2. Environment Variables
+Buat file `.env.local` di *root* folder proyek dan salin kredensial dari *Project Settings* Supabase Anda:
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://<your-project>.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=<your-anon-key>
 ```
+*(Catatan: Anda tidak memerlukan Service Role Key atau bypass key di aplikasi Next.js ini karena keamanan dijaga lewat pola RLS).*
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Migrasi Database (Supabase)
+Jalankan file SQL migrasi di fitur *SQL Editor* Supabase Anda (atau via Supabase CLI jika menggunakannya). File skema dapat ditemukan di:
+`supabase/migrations/001_create_debts.sql`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Skrip migrasi ini akan membuat tabel `debts`, mengatur relasi ke tabel `auth.users`, serta membuat kebijakan *Row Level Security* (RLS) ketat yang memastikan data terenkapsulasi secara aman per user.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 4. Menjalankan Aplikasi Lokal
+Jalankan perintah berikut di terminal:
+```bash
+npm install
+npm run dev
+```
+Buka [http://localhost:3000](http://localhost:3000) di browser.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 💡 Approach (Keputusan Teknis yang Membanggakan)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Keputusan teknis yang paling saya banggakan dalam proyek ini adalah **Saya menggunakan Next.js Route Handler sebagai API layer untuk fitur debt, sehingga validation dan business logic terpusat di server sebelum data diteruskan ke Supabase.**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## ⚖️ Trade-off & Future Polish
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Jika memiliki satu hari tambahan, saya ingin mengembangkan sistem utang 2 arah antar-user. User tetap dapat memasukkan nama secara manual seperti saat ini, atau memilih user Kasbon sebagai target. Jika memilih user lain, permintaan utang akan muncul di akun tersebut untuk diterima atau ditolak. Jika diterima, catatan utang kedua user akan saling terhubung sehingga status pelunasan dapat disinkronkan, dengan kemungkinan pengembangan fitur bukti pembayaran dan konfirmasi pelunasan.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## ⏱️ Time Spent
+- **Total waktu:** 4 Jam
+- Fokus dihabiskan ke: Setup & arsitektur Supabase, implementasi Auth (Client), Backend Next.js API, UI/UX (Tailwind v4), dan perapian *handling error/type*.
