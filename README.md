@@ -52,5 +52,5 @@ Jika memiliki satu hari tambahan, saya ingin mengembangkan sistem utang 2 arah a
 ---
 
 ## ⏱️ Time Spent
-- **Total waktu:** 4 Jam
+- **Total waktu:** 5 Jam
 - Fokus dihabiskan ke: Setup & arsitektur Supabase, implementasi Auth (Client), Backend Next.js API, UI/UX (Tailwind v4), dan perapian *handling error/type*.
